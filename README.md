@@ -1,6 +1,9 @@
-# dangdang
+# 仿当当网
+
+Vue-cil（Vue2） + Vuex + axios + Vue-Router + noprogress + element-ui + swiper
 
 ## Project setup
+
 ```
 npm install
 ```
