@@ -122,6 +122,7 @@ export default {
       this.$refs.bgTop.style.height = "200px"
     },5000)
 
+    // 渲染页面就 获取 用户信息
     if(localStorage.token){
       getProfile().then((res)=>{
         if(res.code === 200){

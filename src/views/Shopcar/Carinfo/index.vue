@@ -1,12 +1,14 @@
 <template>
   <div class="Carinfo">
     <div class="carbox" v-if="bookinfo.length">
+      <!-- 配送地址 -->
       <div class="CarinfoHead">
         <div class="headbox">
           <span>配送地址： 重庆市南岸区崇文路2号重庆邮电大学</span>
         </div>
       </div>
       <div class="CarinfoBody">
+        <!-- 未登录显示信息 -->
         <div class="islogin" v-show="isDisplay">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-jinggao"></use>
@@ -33,6 +35,7 @@
             <li class="f4">操作</li>
           </ul>
         </div>
+        <!-- 具体商品信息 -->
         <div class="cartgoods">
           <table>
             <tbody v-for="(item, index) in shopcartBook" :key="index">
@@ -131,6 +134,7 @@
           </table>
         </div>
       </div>
+      <!-- 总价 -->
       <div class="totalprice" ref="totals">
         <div class="box">
           <div class="boxleft">
@@ -162,6 +166,7 @@
         </div>
       </div>
     </div>
+    <!-- 购物车为空展示页面 -->
     <div class="nonecar" v-else>
       <div class="empty">
         <p>您的购物车还是空的，您可以：</p>
@@ -169,8 +174,6 @@
           <a href="/#/login" class="loginin">立即登录</a>
           <span>登录后购物车的商品将保存到您的账号中，或者</span>
         </span>
-        
-        
         <a href="/#/home">去逛逛</a>
       </div>
     </div>
@@ -191,12 +194,15 @@ export default {
     this.bookinfo = this.$store.state.shopcartBook;
   },
   methods: {
+    //修改商品数量
     changenumber(index, type) {
       this.$store.dispatch("changenumber", { index, type });
     },
+    //全选
     selectall(event) {
       this.$store.dispatch("selectall", event.target.checked);
     },
+    // 勾选商品
     ischeckall(event) {
       this.$store.dispatch("ischecksall", {
         index: event.target.attributes.index.value,
@@ -235,6 +241,7 @@ export default {
           });
         })
     },
+    // 结算付款
     paymoney() {
       if (!localStorage.token) {
         this.$router.push("/login");
@@ -250,6 +257,7 @@ export default {
       isDisplay: (state) => state.isDisplay,
       shopcartBook: (state) => state.shopcartBook,
     }),
+    // 检测商品是否全部勾选中
     isall() {
       if (!this.bookinfo.length) return false;
       for (let i = 0; i < this.bookinfo.length; i++) {
@@ -257,6 +265,7 @@ export default {
       }
       return true;
     },
+    // 监测商品数量
     checkednum() {
       if (!this.bookinfo.length) return 0;
       let arr = this.bookinfo.filter((item) => {
@@ -264,6 +273,7 @@ export default {
       });
       return arr.reduce((sum, e) => sum + Number(e.number || 0), 0);
     },
+    // 检测商品总价
     totalprice() {
       if (!this.bookinfo.length) return 0;
       let arr = this.bookinfo.filter((item) => {

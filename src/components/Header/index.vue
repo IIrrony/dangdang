@@ -20,7 +20,7 @@
         <div class="typeList">
           欢迎光临当当，
           <span v-show="!isDisplay">{{ username }}</span>
-
+          <!-- 判断是否登录显示 -->
           <span v-if="isDisplay">
             <router-link class="log" to="/login">登录</router-link>
           </span>
@@ -74,7 +74,7 @@
         </router-link>
       </h1>
       <div class="searchArea">
-        <form action="###" class="searchForm">
+        <form action="" class="searchForm">
           <input
             type="text"
             id="autocomplete"

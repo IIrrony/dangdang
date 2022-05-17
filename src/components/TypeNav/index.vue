@@ -1752,6 +1752,7 @@ export default {
       font-size: 14px;
       font-weight: bold;
       margin-bottom: 1px;
+      user-select: none;
     }
 
     .nav {

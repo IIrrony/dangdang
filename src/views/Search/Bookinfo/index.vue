@@ -103,6 +103,7 @@ export default {
     }
   },
   methods: {
+    //加入购物车， 将商品下标传出
     addtoshopcart(index){
       this.$router.push({
         name:"shopcar",
@@ -114,6 +115,7 @@ export default {
     }
   },
   computed: {
+    // 映射store中的内容
     ...mapState({
       bookinfo: (state) => state.bookinfo,
       asidebookinfo: (state) => state.asidebookinfo,

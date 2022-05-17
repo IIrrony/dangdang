@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <!-- 登录注册页头部 -->
     <div class="loginHeader">
       <div class="headerleft">
         <router-link title="当当网" to="/home">
@@ -9,26 +10,27 @@
       </div>
       <div class="headerright">
         <div class="change">
-          <a href="###">切换无障碍</a>
+          <a href="javascript:;">切换无障碍</a>
         </div>
         <div class="research">
-          <a href="###">
+          <a href="javascript:;">
             <img src="./images/chat.png" alt="">
             <span>“登录页面“改进建议</span>
           </a>
         </div>
       </div>
     </div>
+    <!-- 登录注册页主体 -->
     <div class="loginContent">
-      <a href="###"></a>
+      <a href="javascript:;"></a>
       <div class="loginBox">
+        <!-- 盒子头部 -->
         <div class="boxhead">
           <div class="zhuceright" v-if="btninfo!='登录'">
             <svg class="icon" aria-hidden="true" @click="backLogin">
               <use xlink:href="#icon-zuojiantou"></use>
             </svg>
             <span>立即注册</span>
-            
           </div>
           <div class="loginright" v-else>
             <span :class="{active:active}" @click="changeloginWay1">密码登录</span>
@@ -37,6 +39,7 @@
           </div>
           
         </div>
+        <!-- 盒子主体 -->
         <div class="boxbody">
           <div class="pswlogin">
             <div class="pswbox">
@@ -74,7 +77,7 @@
           <div class="contract">
             <span>
               登录即同意
-              <a href="###">用户协议、隐私政策</a>
+              <a href="javascript:;">用户协议、隐私政策</a>
             </span>
           </div>
           <button @click="loglogin">{{btninfo}}</button>
@@ -84,26 +87,26 @@
             <span>忘记密码</span>
           </div>
         </div>
+        <!-- 盒子底部图标 -->
         <div class="boxfoot">
-          <a href="###">
+          <a href="javascript:;">
             <img src="./images/wechat.png" alt="">
           </a>
-          <a href="###">
+          <a href="javascript:;">
             <img src="./images/alipay.png" alt="">
           </a>
-          <a href="###">
+          <a href="javascript:;">
             <img src="./images/qq.png" alt="">
           </a>
-          <a href="###">
+          <a href="javascript:;">
             <img src="./images/weibo.png" alt="">
           </a>
-          <a href="###">
+          <a href="javascript:;">
             <img src="./images/baidu.png" alt="">
           </a>
         </div>
       </div>
     </div>
-    <!-- <el-button :plain="true" style="border:0; cursor:auto;"></el-button> -->
   </div>
   
 </template>
@@ -115,14 +118,14 @@ export default {
  name:"Login",
  data () {
    return {
-     active:true,
-     shoujiInfo:"手机号/昵称/邮箱",
-     mimaInfo:"密码",
-     icons:"#icon-yanjing",
-     mimaaaa:"",
-     shoujihao:"",
-     yanzhengma:"请输入密码",
-     btninfo:"登录"
+     active:true,// 密码 验证码 登录方式切换
+     shoujiInfo:"手机号/昵称/邮箱",//palceholder
+     mimaInfo:"密码",//palceholder
+     icons:"#icon-yanjing",//是否显示密码图标
+     mimaaaa:"",//具体密码
+     shoujihao:"",//具体账号
+     yanzhengma:"请输入密码",//按钮信息
+     btninfo:"登录"//按钮信息
    }
  },
  methods: {
@@ -168,6 +171,7 @@ export default {
      this.back2()
      this.back()
    },
+   //密码是否可见
    changeicon(){
      if(this.icons == "#icon-yanjing1"){
        this.icons = "#icon-yanjing"
@@ -177,16 +181,18 @@ export default {
        this.$refs.myinput2.type = "text"
      }
    },
+   //切换至注册
    zhuce(){
      this.btninfo = "同意并注册"
      this.changeloginWay2()
    },
+   //返回至登录
    backLogin(){
      this.btninfo = "登录"
      this.changeloginWay1()
    },
+   //登录请求方法
    async loglogin(){
-     
      if(this.btninfo === "同意并注册"){
        let res = await getRegister(this.shoujihao, this.mimaaaa)
        if(res.code === 422){
@@ -196,6 +202,7 @@ export default {
          this.back2()
          this.back()
        }else{
+         //注册成功，请登录
          this.$message.success(res.data.msg)
          this.backLogin()
        }
@@ -205,8 +212,10 @@ export default {
          this.$message.error(res.data.msg)
        }else{
          this.$message.success(res.data.msg)
+         //将username 存储到 vuex store 中
          this.$store.dispatch('getUsername', res.data.user.username)
          localStorage.token = res.data.token
+         //登录成功跳转到首页
          this.$router.push('/home')
        }
      }
